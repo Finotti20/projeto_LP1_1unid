@@ -9,8 +9,7 @@ public class cadastroCliente {
     private String Telefone;
     private String Senha;
 
-    public cadastroCliente(int IDCliente, String Nome, String CPF, String Endereco, String email, String Telefone, String Senha){
-        this.IDCliente = IDCliente;
+    public cadastroCliente(String Nome, String CPF, String Endereco, String email, String Telefone, String Senha){
         this.Nome = Nome;
         this.CPF = CPF;
         this.Endereco = Endereco;
@@ -19,4 +18,5 @@ public class cadastroCliente {
         this.Senha = Senha;
 
     }
+
 }
