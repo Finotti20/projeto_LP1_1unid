@@ -19,4 +19,30 @@ public class cadastroCliente {
 
     }
 
+    public String getNome() {
+        return Nome;
+    }
+
+    public String getEndereco() {
+        return Endereco;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelefone() {
+        return Telefone;
+    }
+
+    public String getCPF() {
+        return CPF;
+    }
+
+    public String getSenha() {
+        return Senha;
+    }
+
+
+
 }
