@@ -43,6 +43,23 @@ public class locacao {
     public veiculo getVeiculo() {
         return veiculo;
     }
+
+    public LocalDate getDataRetirada() {
+        return dataRetirada;
+    }
+
+    public LocalDate getDataDevolucao() {
+        return dataDevolucao;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
     public void finalizar(){
         finalizado=true;
         veiculo.devolver();

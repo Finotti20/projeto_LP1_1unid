@@ -1,5 +1,6 @@
 import java.util.List;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -29,6 +30,9 @@ public class lojaLocadora {
         if (!veiculo.isDisponibilidade()) {
             throw new IllegalArgumentException("Veículo já está alugado.");
         }
+
+        // Marca o veículo como indisponível
+        veiculo.alugar();
 
         // Calcula o valor total da locação
         long dias = java.time.temporal.ChronoUnit.DAYS.between(dataRetirada, dataDevolucao);
@@ -70,6 +74,52 @@ public class lojaLocadora {
             }
         }
         return null; // não encontrado
+    }
+
+    public veiculo buscarVeiculoPorPlaca(String placa) {
+        for (veiculo veiculo : veiculos) {
+            if (veiculo.getPlaca().equalsIgnoreCase(placa)) {
+                return veiculo;
+            }
+        }
+        return null;
+    }
+
+    public locacao buscarLocacaoAtiva(veiculo veiculo) {
+        for (locacao locacao : locacoes) {
+            if (locacao.getVeiculo() == veiculo && !locacao.isFinalizado()) {
+                return locacao;
+            }
+        }
+        return null;
+    }
+
+    public void consultarDisponibilidade() {
+        if (veiculos.isEmpty()) {
+            System.out.println("Nenhum veículo cadastrado no sistema.");
+            return;
+        }
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        System.out.println("----- VEÍCULOS CADASTRADOS -----");
+        for (veiculo veiculo : veiculos) {
+            System.out.println("Placa: " + veiculo.getPlaca() + " | " + veiculo.getMarca() + " "
+                    + veiculo.getModelo() + " (" + veiculo.getAno() + ") - R$" + veiculo.getvalorLocacao() + "/dia");
+
+            if (veiculo.isDisponibilidade()) {
+                System.out.println("Status: DISPONÍVEL");
+            } else {
+                locacao locacaoAtiva = buscarLocacaoAtiva(veiculo);
+                if (locacaoAtiva != null) {
+                    System.out.println("Status: ALUGADO - disponível a partir de "
+                            + locacaoAtiva.getDataDevolucao().format(formato));
+                } else {
+                    System.out.println("Status: ALUGADO");
+                }
+            }
+            System.out.println("----------------------");
+        }
     }
 
 }
